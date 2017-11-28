@@ -12,7 +12,7 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    @campaign = Campaign.new(user: current_user, title: 'Nova Campanha', description: 'Descreva sua campanha...')
+    @campaign = Campaign.new(user: current_user, title: 'New Campaign', description: 'Describe your campaign')
 
     respond_to do |format|
       if @campaign.save
@@ -44,9 +44,11 @@ class CampaignsController < ApplicationController
   def raffle
     respond_to do |format|
       if @campaign.status != "pending"
-        format.json { render json: 'Já foi sorteada', status: :unprocessable_entity }
+        format.json { render json: 'Already raffled', status: :unprocessable_entity }
       elsif @campaign.members.count < 3
-        format.json { render json: 'A campanha precisa de pelo menos 3 pessoas', status: :unprocessable_entity }
+        format.json { 
+          render json: 'The campaign should have at least 3 participants', status: :unprocessable_entity 
+        }
       else
         CampaignRaffleJob.perform_later @campaign
         format.json { render json: true }
@@ -61,7 +63,11 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
-    params.require(:campaign).permit(:title, :description, :event_date, :event_hour, :location).merge(user: current_user)
+    params.require(:campaign).permit(:title, 
+                                     :description, 
+                                     :event_date,
+                                     :event_hour,
+                                     :location).merge(user: current_user)
   end
 
   def is_owner?
