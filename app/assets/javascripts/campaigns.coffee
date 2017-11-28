@@ -24,7 +24,7 @@ $(document).on 'turbolinks:load', ->
         Materialize.toast('Error', 4000, 'red')
     return false
 
-  ('.raffle_campaign').on 'submit', (e) ->
+  $('.raffle_campaign').on 'submit', (e) ->
     $.ajax e.target.action,
       type: 'POST'
       dataType: 'json',
