@@ -13,10 +13,10 @@ $(document).on 'turbolinks:load', ->
         dataType: 'json',
         data: {}
         success: (data, text, jqXHR) ->
-          Materialize.toast('Membro removido', 4000, 'green')
+          Materialize.toast('Participant added successfully', 4000, 'green')
           $('#member_' + e.currentTarget.id).remove()
         error: (jqXHR, textStatus, errorThrown) ->
-          Materialize.toast('Problema na remoção de membro', 4000, 'red')
+          Materialize.toast('Could not remove participant', 4000, 'red')
     return false
 
   $('.new_member').on 'submit', (e) ->
@@ -28,9 +28,9 @@ $(document).on 'turbolinks:load', ->
           insert_member(data['id'], data['name'],  data['email'])
           $('#member_name, #member_email').val("")
           $('#member_name').focus()
-          Materialize.toast('Membro adicionado', 4000, 'green')
+          Materialize.toast('Participant added successfully', 4000, 'green')
         error: (jqXHR, textStatus, errorThrown) ->
-          Materialize.toast('Problema na hora de incluir membro', 4000, 'red')
+          Materialize.toast('Could not remove participant', 4000, 'red')
     return false
 
 
@@ -47,7 +47,7 @@ insert_member = (id, name, email) ->
         '</div>' +
         '<div class="col s12 m5 input-field">' +
           '<input id="email" type="email" class="validate" value="' + email + '">' +
-          '<label for="email" class="active" data-error="Formato incorreto">Email</label>' +
+          '<label for="email" class="active" data-error="Wrong format">Email</label>' +
         '</div>' +
         '<div class="col s3 offset-s3 m1 input-field">' +
           '<i class="material-icons icon">visibility</i>' +
