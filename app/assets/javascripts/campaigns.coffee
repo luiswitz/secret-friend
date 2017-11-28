@@ -1,6 +1,7 @@
 $(document).on 'turbolinks:load', ->
-  $('.update_campaign input').bind 'blur', ->
-    $('.update_campaign').submit()
+  $('.update_campaign input').on 'blur', ->
+    if $(this).val()
+      $('.update_campaign').submit()
 
   $('.update_campaign').on 'submit', (e) ->
     $.ajax e.target.action,
@@ -30,7 +31,7 @@ $(document).on 'turbolinks:load', ->
       dataType: 'json',
       data: {}
       success: (data, text, jqXHR) ->
-        Materialize.toast('Cool! Sonn all participants will recive an e-mail with instructions', 4000, 'green')
+        Materialize.toast('Cool! Soon all participants will recive an e-mail with instructions', 4000, 'green')
       error: (jqXHR, textStatus, errorThrown) ->
         Materialize.toast(jqXHR.responseText, 4000, 'red')
     return false
