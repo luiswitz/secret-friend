@@ -16,12 +16,12 @@ describe RaffleService do
       end
 
       it "results in a hash" do
-        expect(@result.class).to eq(Hash)
+        expect(@results.class).to eq(Hash)
       end
 
       it "all members are in results as a member" do
         result_members = @results.map { |r| r.first }
-        expect(result_member.sort).to eq(@campaign.members.sort)
+        expect(result_members.sort).to eq(@campaign.members.sort)
       end
 
       it "all member are in results as a friend" do
