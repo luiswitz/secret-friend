@@ -59,8 +59,8 @@ RSpec.describe CampaignsController, type: :controller do
 
     it "Create campaign with initial params" do
       expect(Campaign.last.user).to eql(@current_user)
-      expect(Campaign.last.title).to eql("Nova Campanha")
-      expect(Campaign.last.description).to eql("Descreva sua campanha...")
+      expect(Campaign.last.title).to eql("New Campaign")
+      expect(Campaign.last.description).to eql("Describe your campaign")
       expect(Campaign.last.status).to eql('pending')
     end
 

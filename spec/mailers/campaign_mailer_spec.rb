@@ -10,7 +10,7 @@ RSpec.describe CampaignMailer, type: :mailer do
     end
 
     it "renders the headers" do
-      expect(@mail.subject).to eq("Nosso Amigo Secreto: #{@campaign.title}")
+      expect(@mail.subject).to eq("Our Secret Friend: #{@campaign.title}")
       expect(@mail.to).to eq([@member.email])
     end
 

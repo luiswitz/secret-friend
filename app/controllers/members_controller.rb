@@ -10,7 +10,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.json { render json: @member  }
+        format.json { render json: @member }
       else
         format.json { render json: @member.errors, status: :unprocessable_entity  }
       end
@@ -18,10 +18,10 @@ class MembersController < ApplicationController
   end
 
   def destroy
-    @member.destroy
-
-    respond_to do |format|
-      format.json { render json: true  }
+    if @member.destroy
+      render json: { deleted: true }.to_json, status: :ok
+    else
+      render json: { deleted: false }.to_json, status: :unprocessable_entity
     end
   end
 
@@ -58,7 +58,7 @@ class MembersController < ApplicationController
   def is_owner?
     unless current_user == @member.campaign.user
       respond_to do |format|
-        format.json { render json: false, status: :forbidden  }
+        format.json { render json: { member: false }.to_json, status: :forbidden  }
       end
     end
   end

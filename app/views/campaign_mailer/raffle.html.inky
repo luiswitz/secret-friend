@@ -1,0 +1,69 @@
+<container class="body-drip">
+  <spacer size="16"></spacer>
+
+  <row>
+    <columns large="2">
+    </columns>
+    <columns large="1" class="center">
+      <img src="http://localhost:3000/assets/logo.png" alt="">
+    </columns>
+    <columns large="8">
+      <h4>Our secret Friend</h4>
+    </columns>
+  </row>
+
+  <spacer size="16"></spacer>
+
+  <row>
+    <columns>
+      <h4 class="text-center"><%= @campaign.title %></h4>
+      <p class="text-center"><b><%= (@campaign.event_date)? "#{@campaign.event_date.strftime("%d/%m/%y")} | " : '' %></b><b><%= @campaign.locale %></b></p>
+      <spacer size="16"></spacer>
+      <p class="text-center"><%= @campaign.description %></p>
+    </columns>
+  </row>
+
+  <hr/>
+
+  <row>
+    <columns>
+      <spacer size="4"></spacer>
+      <p class="text-center">
+        Hello <%= @member.name %>, your friend <%= @campaign.user.name %> just created a secret friend campaign and added you! See below who is your secret friend.
+      </p>
+      <spacer size="8"></spacer>
+      <p class="text-center">Your secret friend:&nbsp;<b><u><%= @friend.name %></u></b></p>
+      <spacer size="8"></spacer>
+      <center>
+        <button href="" class="">Make your own campaign</button>
+      </center>
+    </columns>
+  </row>
+
+
+  <wrapper class="secondary">
+
+    <spacer size="16"></spacer>
+
+    <row>
+      <h5 class="text-center">Contact us</h5>
+    </row>
+
+    <row>
+      <columns large="6">
+        <button class="facebook expand" href="">Facebook</button>
+      </columns>
+      <columns large="6">
+        <button class="twitter expand" href="">Twitter</button>
+      </columns>
+    </row>
+  </wrapper>
+
+  <wrapper class="secondary">
+
+    <spacer size="2"></spacer>
+
+  </wrapper>
+
+  <img src='<%= "#{ActionMailer::Base.default_url_options[:host]}/members/#{@member.token}/opened" %>' width="1" height="1">
+</container>

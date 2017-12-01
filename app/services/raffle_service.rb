@@ -25,7 +25,7 @@ class RaffleService
           break
         elsif friend != m and results[friend] != m
           results[m] = friend
-          friend_list -= [friend]
+          friends_list -= [friend]
           break 
         end
       end
