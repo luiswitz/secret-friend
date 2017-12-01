@@ -13,7 +13,7 @@ $(document).on 'turbolinks:load', ->
         dataType: 'json',
         data: {}
         success: (data, text, jqXHR) ->
-          Materialize.toast('Participant added successfully', 4000, 'green')
+          Materialize.toast('Participant removed successfully', 4000, 'green')
           $('#member_' + e.currentTarget.id).remove()
         error: (jqXHR, textStatus, errorThrown) ->
           Materialize.toast('Could not remove participant', 4000, 'red')
