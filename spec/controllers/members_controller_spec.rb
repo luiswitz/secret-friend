@@ -8,9 +8,10 @@ RSpec.describe MembersController, type: :controller do
   before { sign_in user }
 
   describe "POST #create" do
+    let(:member) { member = create(:member) }
+
     context 'with valid parameters' do
       it "creates a new user" do
-        member = create(:member)
         post :create, params: { member: { name: member.name, email: member.email } }, format: :json
         expect(Member.last).to eq(member)
       end
@@ -26,8 +27,9 @@ RSpec.describe MembersController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'member is the owner of the campaign' do
+      let(:member) { create(:member, campaign: campaign) } 
+      
       before do
-        member = create(:member, campaign: campaign)
         delete :destroy, params: { id: member.id }, format: :json
       end
 
@@ -42,8 +44,9 @@ RSpec.describe MembersController, type: :controller do
     end
 
     context 'member is not the owner of the campaign' do
+      let(:member) { create(:member) }
+
       before do
-        member = create(:member)
         delete :destroy, params: { id: member.id }, format: :json
       end
       
@@ -58,11 +61,21 @@ RSpec.describe MembersController, type: :controller do
     end
   end
 
-  describe "GET #update" do
-    xit "returns http success" do
-      get :update
-      expect(response).to have_http_status(:success)
+  describe "PUT #update" do
+    let(:member) { create(:member) }
+
+    context 'with valid parameters' do
+      it 'updates a member' do 
+        patch :create, params: { member: { id: member.id, name: 'the-edited-name', email: 'the-edited-email' } }, format: :json
+        expect(Member.find(member.id)).to eq(member)
+      end
+    end
+
+    context 'with invalid parameters' do
+      it 'returns 302 status' do
+        patch :create, params: { member: { id: member.id, name: '', email: '' } }, format: :json
+        expect(response).to have_http_status(422)
+      end
     end
   end
-
 end
