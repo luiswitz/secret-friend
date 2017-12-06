@@ -36,7 +36,9 @@ describe RaffleService do
       end
 
       it "member X doesn't catch the Y member that catches the X member" do
-
+        @results.each do |r|
+          expect(@results).not_to include(r.reverse)
+        end
       end
     end
     
