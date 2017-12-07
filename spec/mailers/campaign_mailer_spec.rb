@@ -30,4 +30,26 @@ RSpec.describe CampaignMailer, type: :mailer do
       expect(@mail.body.encoded).to match("/members/#{@member.token}/opened")
     end
   end
+
+  describe '#error' do
+    let(:owner) { create(:user) }
+    let(:campaign) { create(:campaign, user: owner) }
+    let(:mail) { CampaignMailer.error(campaign, owner) }
+
+    it 'sends the email to the owner' do
+      expect(mail.to).to eq([owner.email])
+    end
+
+    it 'renders the headers' do
+      expect(mail.subject).to eq('Something went wrong with your campaign =(')
+    end
+
+    it 'body has the owner name' do
+      expect(mail.body.encoded).to match(owner.name)
+    end
+
+    it 'body has the campaign link' do
+      expect(mail.body.encoded).to match(campaign_path(campaign))
+    end
+  end
 end
