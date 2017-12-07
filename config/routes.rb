@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
-  #mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Web => '/sidekiq' if Rails.env.development?
 
   root to: 'pages#home'
 
