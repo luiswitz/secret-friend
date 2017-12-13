@@ -169,5 +169,21 @@ RSpec.describe CampaignsController, type: :controller do
       end
     end
   end
+
+  describe '#confirm_destroy' do
+    let(:campaign) { create(:campaign, user: @current_user) }
+    
+    subject do
+      get :confirm_destroy, params: { id: campaign.id }
+    end
+
+    it 'returns http success' do
+      expect(subject).to have_http_status(:success)
+    end
+
+    it 'renders modal template' do
+      expect(subject).to render_template('layouts/modal')
+    end
+  end
 end
 

@@ -8,6 +8,11 @@
 
       <% @campaigns.each do |c| %>
         <div class="card horizontal">
+          <div class="delete-action">
+            <%= link_to confirm_destroy_campaign_path(c), data: { behavior: 'modal' } do %>
+              <i class="material-icons">close</i>
+            <% end %>
+          </div>
           <div class="card-content col s12">
             <div class="col s12 l8 m12">
               <div class="row">

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
+  get 'campaigns/:id/confirm_destroy', to: 'campaigns#confirm_destroy', as: :confirm_destroy_campaign
   resources :campaigns, except: [:new] do
     post 'raffle', on: :member
   end
