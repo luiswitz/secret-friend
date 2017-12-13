@@ -1,0 +1,3 @@
+<h5>Are you sure?</h5>
+<p>Delete Campaign <%= @campaign.title %>?</p>
+<%= button_to 'Delete', campaign_path(@campaign), :method => 'delete', class: "btn red accent-2" %>

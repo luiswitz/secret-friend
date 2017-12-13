@@ -1,7 +1,7 @@
 class CampaignsController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_campaign, only: [:show, :destroy, :update, :raffle]
+  before_action :set_campaign, only: [:show, :destroy, :update, :raffle, :confirm_destroy]
   before_action :is_owner?, only: [:show, :destroy, :update, :raffle]
 
   def show
@@ -33,10 +33,15 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def confirm_destroy
+    render :confirm_destroy, layout: 'modal'  
+  end
+
   def destroy
     @campaign.destroy
 
     respond_to do |format|
+      format.html { redirect_to campaigns_url }
       format.json { render json: true }
     end
   end
