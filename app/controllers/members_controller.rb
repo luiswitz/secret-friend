@@ -28,7 +28,9 @@ class MembersController < ApplicationController
   def update
     respond_to do |format|
       if @member.update(member_params)
+        @campaign = Campaign.find(@member.campaign_id)
         format.json { render json: true  }
+        format.js
       else
         format.json { render json: @member.errors, status: :unprocessable_entity  }
       end
