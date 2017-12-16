@@ -1,6 +1,7 @@
 class Member < ApplicationRecord
   belongs_to :campaign
   validates :name, :email, :campaign, presence: true
+  validates :email, :email_format => { :message => 'Invalid email' }
   after_destroy :set_campaign_pending
 
   def set_pixel

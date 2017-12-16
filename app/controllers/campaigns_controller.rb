@@ -65,6 +65,7 @@ class CampaignsController < ApplicationController
 
   def set_campaign
     @campaign = Campaign.find(params[:id])
+    @campaign.members << Member.new(campaign: @campaign)
   end
 
   def campaign_params
