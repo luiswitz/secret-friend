@@ -1,0 +1,4 @@
+<% @campaign.members.order(:created_at).each do |member| %>
+  <%= render partial: 'members/form', locals: { member: member } %>
+<% end %>
+<%= render partial: 'members/form', locals: { member: Member.new(campaign: @campaign) } %>

@@ -7,10 +7,12 @@ class MembersController < ApplicationController
 
   def create
     @member = Member.new(member_params)
+    @campaign = @member.campaign
 
     respond_to do |format|
       if @member.save
-        format.json { render json: @member }
+        flash[:notice] = 'Member added with success'
+        format.js { render template: 'campaigns/members.js.coffee'  }
       else
         format.json { render json: @member.errors, status: :unprocessable_entity  }
       end
@@ -19,18 +21,25 @@ class MembersController < ApplicationController
 
   def destroy
     if @member.destroy
-      render json: { deleted: true }.to_json, status: :ok
+      @campaign = @member.campaign
+      flash[:notice] = 'Member deleted with success'
+      respond_to do |format|
+        format.js { render template: 'campaigns/members.js.coffee'  }
+      end
     else
       render json: { deleted: false }.to_json, status: :unprocessable_entity
     end
   end
 
   def update
+    @campaign = Campaign.find(@member.campaign_id)
     respond_to do |format|
       if @member.update(member_params)
-        format.json { render json: true  }
+        flash[:notice] = 'Member updated with success'
+        format.js { render template: 'campaigns/members.js.coffee'  }
       else
-        format.json { render json: @member.errors, status: :unprocessable_entity  }
+        flash[:notice] = @member.errors.full_messages.to_sentence
+        format.js { render template: 'campaigns/members.js.coffee'  }
       end
     end
   end

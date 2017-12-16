@@ -20,6 +20,7 @@ gem 'redis'
 gem 'sidekiq'
 gem 'inky-rb', require: 'inky'
 gem 'premailer-rails'
+gem 'validates_email_format_of'
 
 group :test do
   gem "factory_girl_rails"
