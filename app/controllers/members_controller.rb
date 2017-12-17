@@ -24,6 +24,7 @@ class MembersController < ApplicationController
       @campaign = @member.campaign
       flash[:notice] = 'Member deleted with success'
       respond_to do |format|
+        format.json { render json: { deleted: true }.to_json, status: :ok }
         format.js { render template: 'campaigns/members.js.coffee'  }
       end
     else
