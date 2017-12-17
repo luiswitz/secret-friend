@@ -65,7 +65,6 @@ class CampaignsController < ApplicationController
 
   def set_campaign
     @campaign = Campaign.find(params[:id])
-    @campaign.members << Member.new(campaign: @campaign)
   end
 
   def campaign_params
@@ -73,7 +72,7 @@ class CampaignsController < ApplicationController
                                      :description, 
                                      :event_date,
                                      :event_hour,
-                                     :location).merge(user: current_user)
+                                     :locale).merge(user: current_user)
   end
 
   def is_owner?
