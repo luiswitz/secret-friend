@@ -7,7 +7,7 @@ class CampaignRaffleJob < ApplicationJob
     if results == false
       CampaignMailer.error(campaign, campaign.user).deliver_now
     else
-      campaign.members.each {|m| m.set_pixel}
+      campaign.members.each(&:set_pixel)
       results.each do |r|
         CampaignMailer.raffle(campaign, r.first, r.last).deliver_now
       end

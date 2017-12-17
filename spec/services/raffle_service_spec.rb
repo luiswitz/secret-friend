@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 describe RaffleService do
-
   before :each do
     @campaign = create(:campaign, status: :pending)
   end
 
   describe '#call' do
-    context "when there are more than two members" do
+    context 'when there are more than two members' do
       before :each do
         3.times { create(:member, campaign: @campaign) }
         @campaign.reload
@@ -15,17 +14,17 @@ describe RaffleService do
         @results = RaffleService.new(@campaign).call
       end
 
-      it "results in a hash" do
+      it 'results in a hash' do
         expect(@results.class).to eq(Hash)
       end
 
-      it "all members are in results as a member" do
-        result_members = @results.map { |r| r.first }
+      it 'all members are in results as a member' do
+        result_members = @results.map(&:first)
         expect(result_members.sort).to eq(@campaign.members.sort)
       end
 
-      it "all member are in results as a friend" do
-        result_friends = @results.map { |r| r.last }
+      it 'all member are in results as a friend' do
+        result_friends = @results.map(&:last)
         expect(result_friends.sort).to eq(@campaign.members.sort)
       end
 
@@ -41,9 +40,8 @@ describe RaffleService do
         end
       end
     end
-    
 
-    context "when there are less than two members" do
+    context 'when there are less than two members' do
       before :each do
         create(:member, campaign: @campaign)
         @campaign.reload
@@ -51,7 +49,7 @@ describe RaffleService do
         @response = RaffleService.new(@campaign).call
       end
 
-      it "returns false" do
+      it 'returns false' do
         expect(@response).to eql(false)
       end
     end

@@ -1,8 +1,8 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!, except: [:opened]
 
-  before_action :set_member, only: [:show, :destroy, :update]
-  before_action :is_owner?, only: [:destroy, :update]
+  before_action :set_member, only: %i[show destroy update]
+  before_action :is_owner?, only: %i[destroy update]
   before_action :set_member_by_token, only: [:opened]
 
   def create
@@ -12,9 +12,9 @@ class MembersController < ApplicationController
     respond_to do |format|
       if @member.save
         flash[:notice] = 'Member added with success'
-        format.js { render template: 'campaigns/members.js.coffee'  }
+        format.js { render template: 'campaigns/members.js.coffee' }
       else
-        format.json { render json: @member.errors, status: :unprocessable_entity  }
+        format.json { render json: @member.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -25,7 +25,7 @@ class MembersController < ApplicationController
       flash[:notice] = 'Member deleted with success'
       respond_to do |format|
         format.json { render json: { deleted: true }.to_json, status: :ok }
-        format.js { render template: 'campaigns/members.js.coffee'  }
+        format.js { render template: 'campaigns/members.js.coffee' }
       end
     else
       render json: { deleted: false }.to_json, status: :unprocessable_entity
@@ -37,17 +37,17 @@ class MembersController < ApplicationController
     respond_to do |format|
       if @member.update(member_params)
         flash[:notice] = 'Member updated with success'
-        format.js { render template: 'campaigns/members.js.coffee'  }
+        format.js { render template: 'campaigns/members.js.coffee' }
       else
         flash[:notice] = @member.errors.full_messages.to_sentence
-        format.js { render template: 'campaigns/members.js.coffee'  }
+        format.js { render template: 'campaigns/members.js.coffee' }
       end
     end
   end
 
   def opened
     @member.update(open: true)
-    gif = Base64.decode64("R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==")
+    gif = Base64.decode64('R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
     render text: gif, type: 'image/gif'
   end
 
@@ -68,7 +68,7 @@ class MembersController < ApplicationController
   def is_owner?
     unless current_user == @member.campaign.user
       respond_to do |format|
-        format.json { render json: { member: false }.to_json, status: :forbidden  }
+        format.json { render json: { member: false }.to_json, status: :forbidden }
       end
     end
   end

@@ -1,11 +1,10 @@
 class CampaignsController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_campaign, only: [:show, :destroy, :update, :raffle, :confirm_destroy]
-  before_action :is_owner?, only: [:show, :destroy, :update, :raffle]
+  before_action :set_campaign, only: %i[show destroy update raffle confirm_destroy]
+  before_action :is_owner?, only: %i[show destroy update raffle]
 
-  def show
-  end
+  def show; end
 
   def index
     @campaigns = current_user.campaigns
@@ -34,7 +33,7 @@ class CampaignsController < ApplicationController
   end
 
   def confirm_destroy
-    render :confirm_destroy, layout: 'modal'  
+    render :confirm_destroy, layout: 'modal'
   end
 
   def destroy
@@ -48,12 +47,12 @@ class CampaignsController < ApplicationController
 
   def raffle
     respond_to do |format|
-      if @campaign.status != "pending"
+      if @campaign.status != 'pending'
         format.json { render json: 'Already raffled', status: :unprocessable_entity }
       elsif @campaign.members.count < 3
-        format.json { 
-          render json: 'The campaign should have at least 3 participants', status: :unprocessable_entity 
-        }
+        format.json do
+          render json: 'The campaign should have at least 3 participants', status: :unprocessable_entity
+        end
       else
         CampaignRaffleJob.perform_later @campaign
         format.json { render json: true }
@@ -68,8 +67,8 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
-    params.require(:campaign).permit(:title, 
-                                     :description, 
+    params.require(:campaign).permit(:title,
+                                     :description,
                                      :event_date,
                                      :event_hour,
                                      :locale).merge(user: current_user)

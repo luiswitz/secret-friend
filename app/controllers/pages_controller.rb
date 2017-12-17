@@ -1,8 +1,6 @@
 class PagesController < ApplicationController
   def home
     @campaigns = []
-    if current_user
-      @campaigns = current_user.last_campaigns
-    end
+    @campaigns = current_user.last_campaigns if current_user
   end
 end

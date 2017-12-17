@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { registrations: 'registrations' }
+  devise_for :users, controllers: { registrations: 'registrations' }
   mount Sidekiq::Web => '/sidekiq' if Rails.env.development?
 
   root to: 'pages#home'
@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   end
 
   get 'members/:token/opened', to: 'members#opened'
-  resources :members, only: [:create, :destroy, :update]
+  resources :members, only: %i[create destroy update]
 end
