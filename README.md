@@ -1,24 +1,20 @@
-# README
+# Secret Friend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Kriss Kringle app.
+It allows you to create campaigns as events and invite your friends by email 
 
-Things you may want to cover:
+## Install
 
-* Ruby version
+```
+git clone https://github.com/luiswitz/secret-friend.git
+```
 
-* System dependencies
+```
+docker-compose up
+```
 
-* Configuration
+## Run tests
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+docker-compose run --rm app bundle exec rspec
+```
