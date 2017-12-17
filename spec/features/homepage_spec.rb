@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'capybara/rails'
 
-feature 'Recent campaigns in Home Page', :type => :feature  do
+feature 'Recent campaigns in Home Page', type: :feature do
   include Warden::Test::Helpers
 
   let!(:user) { FactoryGirl.create(:user) }
@@ -10,7 +10,7 @@ feature 'Recent campaigns in Home Page', :type => :feature  do
   let!(:campaign3) { FactoryGirl.create(:campaign) }
 
   before do
-    login_as(user, :scope => :user)
+    login_as(user, scope: :user)
     visit root_path
   end
 
@@ -20,8 +20,8 @@ feature 'Recent campaigns in Home Page', :type => :feature  do
   end
 
   scenario 'logged user sees campaign link' do
-    expect(page).to have_link('create', :href => campaign_path(campaign1))
-    expect(page).to have_link('create', :href => campaign_path(campaign2))
+    expect(page).to have_link('create', href: campaign_path(campaign1))
+    expect(page).to have_link('create', href: campaign_path(campaign2))
   end
 
   scenario 'logged user doesn\'t sees campaigns from others' do

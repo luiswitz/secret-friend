@@ -10,7 +10,7 @@ class RaffleService
     members_list = @campaign.members
     friends_list = @campaign.members
     i = 0
-    
+
     while members_list.count != i
       current_member = members_list[i]
       i += 1
@@ -18,15 +18,15 @@ class RaffleService
       loop do
         friend = friends_list.sample
 
-        if friends_list.count == 1 and friend == current_member
+        if (friends_list.count == 1) && (friend == current_member)
           results = {}
           members_list = @campaign.members
           friends_list = @campaign.members
           break
-        elsif friend != current_member and results[friend] != current_member
+        elsif (friend != current_member) && (results[friend] != current_member)
           results[current_member] = friend
           friends_list -= [friend]
-          break 
+          break
         end
       end
     end
